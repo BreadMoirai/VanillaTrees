@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.breadmoirai.vanillatrees.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AzaleaBlockMixin",
+    "SaplingBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

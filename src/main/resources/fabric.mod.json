@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "vanilla-trees",
+  "version": "${version}",
+  "name": "Vanilla Trees",
+  "description": "Force saplings to grow vanilla trees when next to a dispenser or via gamerule",
+  "authors": ["BreadMoirai"],
+  "contact": {
+    "homepage": "https://github.com/BreadMoirai/VanillaTrees",
+    "issues": "https://github.com/BreadMoirai/VanillaTrees/issues",
+    "sources": "https://github.com/BreadMoirai/VanillaTrees"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/vanilla-trees/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.breadmoirai.vanillatrees.VanillaTrees"
+    ]
+  },
+  "mixins": [
+    "vanilla-trees.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "mc-publish": {
+      "modrinth": "Rajp09FB",
+      "dependencies": []
+    }
+  }
+}
