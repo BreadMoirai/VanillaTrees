@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "vanilla-trees-testmod",
+  "version": "1.0.0",
+  "name": "Vanilla Trees Testmod",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": [
+      "com.breadmoirai.vanillatrees.testmod.VanillaTreesGameTests"
+    ]
+  },
+  "depends": {
+    "vanilla-trees": "*"
+  }
+}

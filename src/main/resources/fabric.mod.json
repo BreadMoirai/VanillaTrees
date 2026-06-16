@@ -22,14 +22,16 @@
     "vanilla-trees.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${loader_version}",
-    "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "fabricloader": ">=0.15.7",
+    "fabric-api": "*",
+    "minecraft": "${minecraft}"
   },
   "custom": {
     "mc-publish": {
       "modrinth": "Rajp09FB",
-      "dependencies": []
+      "dependencies": [
+        "fabric-api(required)"
+      ]
     }
   }
 }

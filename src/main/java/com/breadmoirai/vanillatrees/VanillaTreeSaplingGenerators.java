@@ -1,9 +1,9 @@
 package com.breadmoirai.vanillatrees;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.SaplingGenerator;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.TreeGrower;
 
 import java.util.Map;
 import java.util.Optional;
@@ -11,22 +11,22 @@ import java.util.Optional;
 import static java.util.Map.entry;
 
 public class VanillaTreeSaplingGenerators {
-   public static final SaplingGenerator OAK = new SaplingGenerator("oak", 0.1F,Optional.empty(), Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.OAK), Optional.of(VanillaTreeConfiguredFeatures.FANCY_OAK), Optional.of(VanillaTreeConfiguredFeatures.OAK_BEES_005), Optional.of(VanillaTreeConfiguredFeatures.FANCY_OAK_BEES_005));
-   public static final SaplingGenerator SPRUCE = new SaplingGenerator("spruce", 0.5F, Optional.of(VanillaTreeConfiguredFeatures.MEGA_SPRUCE), Optional.of(VanillaTreeConfiguredFeatures.MEGA_PINE), Optional.of(VanillaTreeConfiguredFeatures.SPRUCE), Optional.empty(), Optional.empty(), Optional.empty());
-   public static final SaplingGenerator MANGROVE = new SaplingGenerator("mangrove", 0.85F, Optional.empty(), Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.MANGROVE), Optional.of(VanillaTreeConfiguredFeatures.TALL_MANGROVE), Optional.empty(), Optional.empty());
-   public static final SaplingGenerator AZALEA = new SaplingGenerator("azalea", Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.AZALEA_TREE), Optional.empty());
-   public static final SaplingGenerator BIRCH = new SaplingGenerator("birch", Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.BIRCH), Optional.of(VanillaTreeConfiguredFeatures.BIRCH_BEES_005));
-   public static final SaplingGenerator JUNGLE = new SaplingGenerator("jungle", Optional.of(VanillaTreeConfiguredFeatures.MEGA_JUNGLE_TREE), Optional.of(VanillaTreeConfiguredFeatures.JUNGLE_TREE_NO_VINE), Optional.empty());
-   public static final SaplingGenerator ACACIA = new SaplingGenerator("acacia", Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.ACACIA), Optional.empty());
-   public static final SaplingGenerator CHERRY = new SaplingGenerator("cherry", Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.CHERRY), Optional.of(VanillaTreeConfiguredFeatures.CHERRY_BEES_005));
-   public static final SaplingGenerator DARK_OAK = new SaplingGenerator("dark_oak", Optional.of(VanillaTreeConfiguredFeatures.DARK_OAK), Optional.empty(), Optional.empty());
-   public static final SaplingGenerator PALE_OAK = new SaplingGenerator("pale_oak", Optional.of(VanillaTreeConfiguredFeatures.PALE_OAK_BONEMEAL), Optional.empty(), Optional.empty());
+   public static final TreeGrower OAK = new TreeGrower("oak", 0.1F, Optional.empty(), Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.OAK), Optional.of(VanillaTreeConfiguredFeatures.FANCY_OAK), Optional.of(VanillaTreeConfiguredFeatures.OAK_BEES_005), Optional.of(VanillaTreeConfiguredFeatures.FANCY_OAK_BEES_005));
+   public static final TreeGrower SPRUCE = new TreeGrower("spruce", 0.5F, Optional.of(VanillaTreeConfiguredFeatures.MEGA_SPRUCE), Optional.of(VanillaTreeConfiguredFeatures.MEGA_PINE), Optional.of(VanillaTreeConfiguredFeatures.SPRUCE), Optional.empty(), Optional.empty(), Optional.empty());
+   public static final TreeGrower MANGROVE = new TreeGrower("mangrove", 0.85F, Optional.empty(), Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.MANGROVE), Optional.of(VanillaTreeConfiguredFeatures.TALL_MANGROVE), Optional.empty(), Optional.empty());
+   public static final TreeGrower AZALEA = new TreeGrower("azalea", Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.AZALEA_TREE), Optional.empty());
+   public static final TreeGrower BIRCH = new TreeGrower("birch", Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.BIRCH), Optional.of(VanillaTreeConfiguredFeatures.BIRCH_BEES_005));
+   public static final TreeGrower JUNGLE = new TreeGrower("jungle", Optional.of(VanillaTreeConfiguredFeatures.MEGA_JUNGLE_TREE), Optional.of(VanillaTreeConfiguredFeatures.JUNGLE_TREE_NO_VINE), Optional.empty());
+   public static final TreeGrower ACACIA = new TreeGrower("acacia", Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.ACACIA), Optional.empty());
+   public static final TreeGrower CHERRY = new TreeGrower("cherry", Optional.empty(), Optional.of(VanillaTreeConfiguredFeatures.CHERRY), Optional.of(VanillaTreeConfiguredFeatures.CHERRY_BEES_005));
+   public static final TreeGrower DARK_OAK = new TreeGrower("dark_oak", Optional.of(VanillaTreeConfiguredFeatures.DARK_OAK), Optional.empty(), Optional.empty());
+   public static final TreeGrower PALE_OAK = new TreeGrower("pale_oak", Optional.of(VanillaTreeConfiguredFeatures.PALE_OAK_BONEMEAL), Optional.empty(), Optional.empty());
 
-   public static SaplingGenerator generatorFor(SaplingBlock block) {
+   public static TreeGrower generatorFor(SaplingBlock block) {
       return MAP.get(block);
    }
 
-   private static final Map<Block, SaplingGenerator> MAP = Map.ofEntries(
+   private static final Map<Block, TreeGrower> MAP = Map.ofEntries(
       entry(Blocks.OAK_SAPLING, OAK),
       entry(Blocks.SPRUCE_SAPLING, SPRUCE),
       entry(Blocks.MANGROVE_PROPAGULE, MANGROVE),
