@@ -41,11 +41,11 @@ Stonecutter. Server + client (`"environment": "*"`), `main` entrypoint, no confi
 
 - **1.21.x line** (1.21.10, 1.21.11): normal `fabric-loom-remap` + Mojang-mappings path, Java 21,
   `build.gradle.kts`, `transformUnnamedVars` on switch.
-- **26.x line** (26.1, 26.1.1, 26.1.2 — `26.1.2` is the `vcsVersion`; shared `src/` holds its
+- **26.x line** (26.1, 26.1.1, 26.1.2, 26.2 — `26.2` is the `vcsVersion`; shared `src/` holds its
   code): un-obfuscated / JDK-25 toolchain. Registered in `settings.gradle.kts` via
-  `versions("26.1.2", "26.1.1", "26.1").buildscript("build.unobf.gradle.kts")` (plain
+  `versions("26.2", "26.1.2", "26.1.1", "26.1").buildscript("build.unobf.gradle.kts")` (plain
   `fabric-loom`, no Mojang mappings, `restoreUnnamedVars` on switch, `jar` not `remapJar`).
-  The 26.1.x patches are API-identical to 26.1, so there is no source divergence between them.
+  The 26.1.x patches are API-identical to 26.1, so there is no Java source divergence between them.
 
 ### API divergences handled
 
@@ -64,6 +64,16 @@ Stonecutter. Server + client (`"environment": "*"`), `main` entrypoint, no confi
 - No `vXX_Y` versioned packages yet — flat layout. The mixin targets
   (`SaplingBlock.advanceTree`/`treeGrower`, `AzaleaBlock.performBonemeal`, `TreeGrower.AZALEA`)
   are identical across all supported versions.
+- **`tree` feature config `below_trunk_provider`** — the 26.x `TreeConfiguration` codec made
+  `below_trunk_provider` a **required** field (it replaces the old 1.21.x `dirt_provider` +
+  `force_dirt`). Every bundled `worldgen/configured_feature/*.json` (18 in `src/main`, plus the
+  test override in `src/test`) now carries a `below_trunk_provider` (a `rule_based_state_provider`
+  placing the tree's dirt block where the `minecraft:cannot_replace_below_tree_trunk` tag does not
+  forbid it), mirroring vanilla 26.x. The old `dirt_provider`/`force_dirt` keys are kept too:
+  MC codecs ignore unknown map keys, so a single shared JSON parses on **all** versions — 1.21.x
+  reads `dirt_provider` (ignores `below_trunk_provider`), 26.x reads `below_trunk_provider`
+  (ignores the other two). This was also required for the 26.1.x gametests, which the old JSONs
+  silently failed.
 
 ## Build (WSL2 / Windows filesystem)
 
