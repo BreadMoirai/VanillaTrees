@@ -1,6 +1,7 @@
 package com.breadmoirai.vanillatrees.testmod;
 
 import com.breadmoirai.vanillatrees.VanillaTrees;
+import com.breadmoirai.vanillatrees.testmod.bonemeal.AzaleaBonemeal;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -19,7 +20,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
  * gamerule is set. Tests run headless via {@code runGameTest} on every supported MC version.
  *
  * <p>Tier 1 verifies the mixins fire and growth still works. Tier 2 ships a datapack
- * (src/test/resources) that overrides the vanilla {@code minecraft:acacia} feature with a
+ * (versions/<v>/src/test/resources) that overrides the vanilla {@code minecraft:acacia} feature with a
  * distinctive gold tree, proving the mod bypasses the datapack override.
  */
 public class VanillaTreesGameTests {
@@ -33,8 +34,8 @@ public class VanillaTreesGameTests {
    @GameTest(skyAccess = true)
    public void acaciaGrowsWithAlwaysGamerule(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
-      VanillaTrees.setAlways(level, true);            // force the "always" path
-      VanillaTrees.setDispenserForced(level, false);  // ensure growth is due to the gamerule, not a dispenser
+      VanillaTrees.GAME_RULES.setAlways(level, true);            // force the "always" path
+      VanillaTrees.GAME_RULES.setDispenserForced(level, false);  // ensure growth is due to the gamerule, not a dispenser
 
       helper.setBlock(DIRT, Blocks.DIRT);
       helper.setBlock(SAPLING, Blocks.ACACIA_SAPLING.defaultBlockState().setValue(BlockStateProperties.STAGE, 1));
@@ -49,8 +50,8 @@ public class VanillaTreesGameTests {
    @GameTest(skyAccess = true)
    public void azaleaGrowsNextToDispenser(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
-      VanillaTrees.setAlways(level, false);
-      VanillaTrees.setDispenserForced(level, true);
+      VanillaTrees.GAME_RULES.setAlways(level, false);
+      VanillaTrees.GAME_RULES.setDispenserForced(level, true);
 
       helper.setBlock(DIRT, Blocks.DIRT);
       helper.setBlock(DISPENSER, Blocks.DISPENSER);
@@ -68,8 +69,8 @@ public class VanillaTreesGameTests {
    @GameTest(skyAccess = true)
    public void defaultGrowthUsesDatapackFeature(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
-      VanillaTrees.setAlways(level, false);
-      VanillaTrees.setDispenserForced(level, true); // no dispenser placed, so this path is not triggered
+      VanillaTrees.GAME_RULES.setAlways(level, false);
+      VanillaTrees.GAME_RULES.setDispenserForced(level, true); // no dispenser placed, so this path is not triggered
 
       helper.setBlock(DIRT, Blocks.DIRT);
       helper.setBlock(SAPLING, Blocks.ACACIA_SAPLING.defaultBlockState().setValue(BlockStateProperties.STAGE, 1));
@@ -88,8 +89,8 @@ public class VanillaTreesGameTests {
    @GameTest(skyAccess = true)
    public void dispenserBypassesDatapackOverride(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
-      VanillaTrees.setAlways(level, false);
-      VanillaTrees.setDispenserForced(level, true);
+      VanillaTrees.GAME_RULES.setAlways(level, false);
+      VanillaTrees.GAME_RULES.setDispenserForced(level, true);
 
       helper.setBlock(DIRT, Blocks.DIRT);
       helper.setBlock(DISPENSER, Blocks.DISPENSER);
@@ -132,7 +133,7 @@ public class VanillaTreesGameTests {
          if (!(state.getBlock() instanceof AzaleaBlock azalea)) {
             return; // azalea consumed -> a tree grew
          }
-         azalea.performBonemeal(level, random, abs, state);
+         AzaleaBonemeal.INSTANCE.performBonemeal(azalea, level, random, abs, state);
       }
    }
 
