@@ -1,7 +1,7 @@
 package com.breadmoirai.vanillatrees.mixin;
 
-import com.breadmoirai.vanillatrees.VanillaTreeSaplingGenerators;
 import com.breadmoirai.vanillatrees.VanillaTrees;
+import com.breadmoirai.vanillatrees.grower.VanillaTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -19,15 +19,15 @@ public class AzaleaBlockMixin {
 
    @Redirect(at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/grower/TreeGrower;AZALEA:Lnet/minecraft/world/level/block/grower/TreeGrower;"), method = "performBonemeal")
    public TreeGrower replaceGenerator(ServerLevel level, RandomSource random, BlockPos pos) {
-      if (VanillaTrees.isAlways(level)) {
-         return VanillaTreeSaplingGenerators.AZALEA;
+      if (VanillaTrees.GAME_RULES.isAlways(level)) {
+         return VanillaTreeGrowers.INSTANCE.azalea();
       }
-      if (VanillaTrees.isDispenserForced(level)) {
+      if (VanillaTrees.GAME_RULES.isDispenserForced(level)) {
          for (Direction direction : Direction.values()) {
             BlockPos adjacentPos = pos.relative(direction);
             BlockState adjacentState = level.getBlockState(adjacentPos);
             if (adjacentState.getBlock() instanceof DispenserBlock) {
-               return VanillaTreeSaplingGenerators.AZALEA;
+               return VanillaTreeGrowers.INSTANCE.azalea();
             }
          }
       }
